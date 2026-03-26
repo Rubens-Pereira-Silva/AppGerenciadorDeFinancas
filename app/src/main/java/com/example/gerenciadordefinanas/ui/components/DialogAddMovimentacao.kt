@@ -1,6 +1,7 @@
 package com.example.gerenciadordefinanas.ui.components
 
 import android.app.AlertDialog
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
@@ -36,6 +37,10 @@ fun DialogAddMovimentacao(
         modifier = Modifier.height(70.dp)
     )
 
+    Spacer(
+        modifier = Modifier.height(20.dp)
+    )
+
     TextField(
         value = valor,
         onValueChange = { valor = it },
@@ -46,11 +51,19 @@ fun DialogAddMovimentacao(
         modifier = Modifier.height(70.dp)
     )
 
+    Spacer(
+        modifier = Modifier.height(20.dp)
+    )
+
     TextField(
         value = categoria,
         onValueChange = { categoria = it },
         placeholder = {Text("Categoria")},
         modifier = Modifier.height(70.dp)
+    )
+
+    Spacer(
+        modifier = Modifier.height(20.dp)
     )
 
     Button(
@@ -64,4 +77,8 @@ fun DialogAddMovimentacao(
     ) {
         Text("Adicionar")
     }
+
+    Spacer(
+        modifier = Modifier.height(20.dp)
+    )
 }

@@ -17,33 +17,54 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.example.gerenciadordefinanas.data.CartoesLista
 import com.example.gerenciadordefinanas.data.CartoesLista.cartoesLista
 import com.example.gerenciadordefinanas.model.MovimentacaoCartao
 
 @Composable
 fun MovimentacaoCol(){
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-    ) {
-        cartoesLista.forEach { cartaoModel ->
-            cartaoModel.movimentacaoLista.forEach { movimentacaoCartao ->
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(cartaoModel.cor)
-                        .padding(10.dp)
-                ) {
-                    Text(
-                        text = "Valor: ${movimentacaoCartao.valor} | Categoria: ${movimentacaoCartao.categoria}"
+    Column() {
+        if(CartoesLista.filtroCartao.equals(0)){
+            cartoesLista.forEach { cartaoModel ->
+                cartaoModel.movimentacaoLista.forEach { movimentacaoCartao ->
+                    Row(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(cartaoModel.cor)
+                            .padding(10.dp)
+                    ) {
+                        Text(
+                            text = "Valor: ${movimentacaoCartao.valor} | Categoria: ${movimentacaoCartao.categoria}"
+                        )
+                    }
+
+                    Spacer(
+                        modifier = Modifier
+                            .height(15.dp)
                     )
                 }
+            }
+        }else{
+            cartoesLista.forEach { cartaoModel ->
+                if(cartaoModel.numero.equals(CartoesLista.filtroCartao))
+                    cartaoModel.movimentacaoLista.forEach { movimentacaoCartao ->
+                        Row(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(16.dp))
+                                .background(cartaoModel.cor)
+                                .padding(10.dp)
+                        ) {
+                            Text(
+                                text = "Valor: ${movimentacaoCartao.valor} | Categoria: ${movimentacaoCartao.categoria}"
+                            )
+                        }
 
-                Spacer(
-                    modifier = Modifier
-                        .height(15.dp)
-                )
+                        Spacer(
+                            modifier = Modifier
+                                .height(15.dp)
+                        )
+                }
             }
         }
     }

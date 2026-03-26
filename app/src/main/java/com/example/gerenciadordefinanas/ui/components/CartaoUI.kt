@@ -16,7 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.gerenciadordefinanas.data.CartoesLista
 import com.example.gerenciadordefinanas.model.CartaoModel
 import com.example.gerenciadordefinanas.ui.theme.Pink40
 import com.example.gerenciadordefinanas.ui.theme.Pink80
@@ -61,21 +63,31 @@ fun CartaoUI(cartao: CartaoModel){
                 text =  "${if (cartao.valorVisivel) cartao.valorCalulado() else "XXXX"}"
             )
 
+            val btnTamanho : Int = 60
+
             //Botão para trocar entre salvo visivel ou não visivel
             Button(
+                modifier = Modifier
+                    .width(btnTamanho.dp)
+                ,
                 onClick = { cartao.trocarVisibilidade() }
             ) {
                 Text(
-                    text = "👁️‍🗨️"
+                    text = "👁️‍🗨️",
+                    textAlign = TextAlign.Center
                 )
             }
 
             Button(
-                onClick = { cartao.addMovimentacaoCartao() }
+                modifier = Modifier
+                    .width(btnTamanho.dp)
+                ,
+                onClick = { if(!CartoesLista.filtroCartao.equals(cartao.numero ))CartoesLista.filtroCartao = cartao.numero else CartoesLista.filtroCartao = 0  }
             ) {
                 Text(
-                    text = "add"
-                )
+                    text  = "🔂",
+                    textAlign = TextAlign.Center)
+
             }
         }
 

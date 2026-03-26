@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.DisplayMode.Companion.Input
@@ -26,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.gerenciadordefinanas.ui.components.CartoesRow
 import com.example.gerenciadordefinanas.ui.components.DialogAddMovimentacao
 import com.example.gerenciadordefinanas.ui.components.MovimentacaoCol
@@ -53,19 +56,33 @@ fun App(modifier: Modifier) {
 
     var categoria: String = remember { mutableStateOf("").toString()}
 
-    //Coluna principal
+
+
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+        modifier = Modifier
+        .fillMaxSize()
+        .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally)
+    {
         //Linhas que mostra os cartões que o usuario possui
+
         CartoesRow()
 
-        DialogAddMovimentacao()
+        //Coluna principal
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        //Coluna com as movimentações dos cartões
-        MovimentacaoCol()
+
+            DialogAddMovimentacao()
+
+            //Coluna com as movimentações dos cartões
+            MovimentacaoCol()
+        }
     }
+
 }
 
 
