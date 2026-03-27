@@ -15,17 +15,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.gerenciadordefinanas.data.CartoesLista
 import com.example.gerenciadordefinanas.model.CartaoModel
-import com.example.gerenciadordefinanas.ui.theme.Pink40
-import com.example.gerenciadordefinanas.ui.theme.Pink80
 
 @Composable
-fun CartaoUI(cartao: CartaoModel){
-
+fun CartaoEditUI(cartao: CartaoModel){
     Column(
         modifier = Modifier
             .width(270.dp)
