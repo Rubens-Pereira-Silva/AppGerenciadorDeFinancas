@@ -1,8 +1,6 @@
 package com.example.gerenciadordefinanas.ui.components
 
-import android.R
-import android.app.AlertDialog
-import android.app.Dialog
+import android.R.attr.enabled
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -30,6 +28,7 @@ import androidx.compose.ui.window.Dialog
 import com.example.gerenciadordefinanas.data.CartoesLista
 import com.example.gerenciadordefinanas.model.MovimentacaoCartao
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DialogAddMovimentacao(
     aberto: Boolean,
@@ -38,6 +37,8 @@ fun DialogAddMovimentacao(
     var finalCartao by remember { mutableStateOf("") }
     var valor by remember { mutableStateOf("") }
     var categoria by remember { mutableStateOf("") }
+    var expandedInputFinalCartao by remember { mutableStateOf(false) }
+    var expandedInputCateoria by remember { mutableStateOf(false) }
 
     if(aberto){
         Dialog(
@@ -52,14 +53,14 @@ fun DialogAddMovimentacao(
                     .padding(40.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TextField(
+
+                DropDownInput(
+                    placeholder = "Final do Cartão",
                     value = finalCartao,
-                    onValueChange = { finalCartao = it },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number
-                    ),
-                    placeholder = {Text("Final Cartao")},
-                    modifier = Modifier.height(70.dp)
+                    expanded = expandedInputFinalCartao,
+                    list = CartoesLista.cartoesLista.map{cartao -> cartao.numero.toString()},
+                    onExpandedChange = { expandedInputFinalCartao = it },
+                    onItemSelect = {finalCartao = it},
                 )
 
                 Spacer(
@@ -80,11 +81,13 @@ fun DialogAddMovimentacao(
                     modifier = Modifier.height(20.dp)
                 )
 
-                TextField(
+                DropDownInput(
+                    placeholder = "Categoria",
                     value = categoria,
-                    onValueChange = { categoria = it },
-                    placeholder = {Text("Categoria")},
-                    modifier = Modifier.height(70.dp)
+                    expanded = expandedInputCateoria,
+                    list = CartoesLista.categoriasMovimentacao,
+                    onExpandedChange = { expandedInputCateoria = it },
+                    onItemSelect = {categoria = it},
                 )
 
                 Spacer(
