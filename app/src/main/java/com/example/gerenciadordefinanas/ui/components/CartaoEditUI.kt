@@ -13,21 +13,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.gerenciadordefinanas.data.CartoesLista
 import com.example.gerenciadordefinanas.model.CartaoModel
 
 @Composable
-fun CartaoEditUI(cartao: CartaoModel){
+fun CartaoEditUI(cartao: CartaoModel, onClickExcluir: () -> Unit){
     Column(
         modifier = Modifier
             .width(270.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(cartao.cor)
             .padding(15.dp)
+            .height(140.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //variaveis
         val btnTamanho : Int = 60
@@ -42,19 +43,6 @@ fun CartaoEditUI(cartao: CartaoModel){
             Text(
                 text = cartao.nome
             )
-
-            //Botão para trocar entre salvo visivel ou não visivel
-            Button(
-                modifier = Modifier
-                    .width(btnTamanho.dp)
-                ,
-                onClick = { cartao.trocarVisibilidade() }
-            ) {
-                Text(
-                    text = "👁️‍🗨️",
-                    textAlign = TextAlign.Center
-                )
-            }
         }
 
 
@@ -73,29 +61,24 @@ fun CartaoEditUI(cartao: CartaoModel){
                 .height(10.dp)
         )
 
-        //Linha de Saldo e botão para filtrar
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth(0.9f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            //Saldo da conta / visivel ou não
-            Text(
-                text =  "${if (cartao.valorVisivel) cartao.valorCalulado() else "XXXX"}"
-            )
-
             Button(
-                modifier = Modifier
-                    .width(btnTamanho.dp)
-                ,
-                onClick = { if(!CartoesLista.filtroCartao.equals(cartao.numero ))CartoesLista.filtroCartao = cartao.numero else CartoesLista.filtroCartao = 0  }
-            ) {
-                Text(
-                    text  = "🔂",
-                    textAlign = TextAlign.Center)
+            onClick = {
 
             }
-        }
+            ) {
+                Text("✏️")
+            }
+
+            Button(
+                onClick = { onClickExcluir() }
+            ) {
+                Text("🗑️")
+            }}
 
     }
 }
